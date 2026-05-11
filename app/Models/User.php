@@ -3,14 +3,16 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Database\Factories\UserFactory;
+use App\Models\Log;
+use App\Models\Shift;
+use App\Models\UserType;
+use App\Models\Phone;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -22,6 +24,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'user_type_id',
     ];
 
     /**
@@ -45,5 +48,25 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function user_type()
+    {
+        return $this->belongsTo(UserType::class);
+    }
+
+    public function logs()
+    {
+        return $this->hasMany(Log::class);
+    }
+
+    public function shifts()
+    {
+        return $this->belongsToMany(Shift::class, 'user_shift');
+    }
+
+    public function phones()
+    {
+        return $this->hasMany(Phone::class);
     }
 }
