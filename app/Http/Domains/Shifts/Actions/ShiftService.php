@@ -3,7 +3,6 @@
 namespace App\Http\Domains\Shifts\Actions;
 
 use App\Models\Shift;
-use Illuminate\Http\Request;
 
 class ShiftService
 {
@@ -11,13 +10,29 @@ class ShiftService
 
     public function create() {}
 
-    public function store(Request $request)
+    public function store(array $data)
     {
-        Shift::create([
-            'name' => 'moring2',
-            'start_time' => '08:00:00',
-            'end_time' => '16:00:00',
+
+        return Shift::create([
+            'name' => $data['name'],
+            'start_time' => $data['start_time'],
+            'end_time' => $data['end_time'],
         ]);
 
+    }
+
+    public function find($id)
+    {
+        return Shift::findOrFail($id);
+    }
+
+    public function update($id, array $data)
+    {
+        $shift = $this->find($id);
+        return $shift->update([
+            'name' => $data['name'],
+            'start_time' => $data['start_time'],
+            'end_time' => $data['end_time'],
+        ]);
     }
 }

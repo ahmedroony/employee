@@ -1,128 +1,57 @@
-@extends('layouts.admin')
+<div>
+    @vite(['resources/css/admin/shifts.css'])
 
-@section('title', 'إدارة الشفتات - TimeTrack')
-@vite(['resources/css/admin/shifts.css'])
-@section('content')
     <header class="top-header">
         <div class="header-right">
             <h1>إدارة الشفتات</h1>
             <p>3 شفتات نشطة — 24 موظف مُعيّن</p>
         </div>
         <div class="header-left">
-            <a href="{{ route('Create.shifts') }}" wire:navigate class="btn btn-primary"><i class='bx bx-plus'></i> شفت جديد</a>
+            <a href="{{ route('admin.shifts.create') }}" wire:navigate class="btn btn-primary"><i class='bx bx-plus'></i>
+                شفت جديد</a>
         </div>
     </header>
 
     <!-- Shifts Grid -->
     <div class="shifts-grid">
+        @foreach ($shifts as $shift)
+            <div class="shift-card border-blue">
+                <div class="shift-header">
+                    <div class="shift-title">
+                        {{ $shift->name }}
+                    </div>
+                </div>
 
-        <!-- Shift Card 1 -->
-        <div class="shift-card border-blue">
-            <div class="shift-header">
-                <div class="shift-title">
-                    <span class="dot blue"></span> شفت صباحي A
+                <div class="shift-time-info">
+                    <span class="shift-time-label">بداية</span>
+                    <span
+                        class="shift-time-value text-green">{{ \Carbon\Carbon::parse($shift->start_time)->format('H:i') }}</span>
+                </div>
+                <div class="shift-time-info">
+                    <span class="shift-time-label">نهاية</span>
+                    <span
+                        class="shift-time-value text-red">{{ \Carbon\Carbon::parse($shift->end_time)->format('H:i') }}</span>
+                </div>
+
+                <div class="shift-divider"></div>
+
+                <div class="shift-stats">
+                    <div class="shift-stats-right">
+                        <div><span>12</span> موظف</div>
+                        <div><span>{{ $shift->minstime() }}</span> ساعات عمل</div>
+                    </div>
+                </div>
+
+                <div class="shift-actions">
+                    <button class="btn btn-outline"><i class='bx bx-group'></i> الموظفين</button>
+                    <a href="{{ route('admin.shifts.edit', $shift->id) }}" wire:navigate class="btn btn-blue"
+                        class="btn btn-blue"><i class='bx bx-pencil'></i> تعديل</a>
                 </div>
             </div>
-
-            <div class="shift-time-info">
-                <span class="shift-time-label">بداية</span>
-                <span class="shift-time-value text-green">08:00</span>
-            </div>
-            <div class="shift-time-info">
-                <span class="shift-time-label">نهاية</span>
-                <span class="shift-time-value text-red">16:00</span>
-            </div>
-
-            <div class="shift-divider"></div>
-
-            <div class="shift-stats">
-                <div class="shift-stats-right">
-                    <div><span>12</span> موظف</div>
-                    <div><span>8</span> ساعات عمل</div>
-                </div>
-                <div class="shift-stats-left">
-                    <span>أوفرتايم:</span> <span class="text-orange">1.5x</span>
-                </div>
-            </div>
-
-            <div class="shift-actions">
-                <button class="btn btn-outline"><i class='bx bx-group'></i> الموظفين</button>
-                <button class="btn btn-blue"><i class='bx bx-pencil'></i> تعديل</button>
-            </div>
-        </div>
-
-        <!-- Shift Card 2 -->
-        <div class="shift-card border-purple">
-            <div class="shift-header">
-                <div class="shift-title">
-                    <span class="dot purple"></span> شفت مسائي B
-                </div>
-            </div>
-
-            <div class="shift-time-info">
-                <span class="shift-time-label">بداية</span>
-                <span class="shift-time-value text-green">14:00</span>
-            </div>
-            <div class="shift-time-info">
-                <span class="shift-time-label">نهاية</span>
-                <span class="shift-time-value text-red">22:00</span>
-            </div>
-
-            <div class="shift-divider"></div>
-
-            <div class="shift-stats">
-                <div class="shift-stats-right">
-                    <div><span>9</span> موظف</div>
-                    <div><span>8</span> ساعات عمل</div>
-                </div>
-                <div class="shift-stats-left">
-                    <span>أوفرتايم:</span> <span class="text-orange">1.5x</span>
-                </div>
-            </div>
-
-            <div class="shift-actions">
-                <button class="btn btn-outline"><i class='bx bx-group'></i> الموظفين</button>
-                <button class="btn btn-blue"><i class='bx bx-pencil'></i> تعديل</button>
-            </div>
-        </div>
-
-        <!-- Shift Card 3 -->
-        <div class="shift-card border-orange">
-            <div class="shift-header">
-                <div class="shift-title">
-                    <span class="dot orange"></span> شفت ليلي C
-                </div>
-            </div>
-
-            <div class="shift-time-info">
-                <span class="shift-time-label">بداية</span>
-                <span class="shift-time-value text-green">22:00</span>
-            </div>
-            <div class="shift-time-info">
-                <span class="shift-time-label">نهاية</span>
-                <span class="shift-time-value text-red">06:00<span class="plus-one">+1</span></span>
-            </div>
-
-            <div class="shift-divider"></div>
-
-            <div class="shift-stats">
-                <div class="shift-stats-right">
-                    <div><span>3</span> موظف</div>
-                    <div><span>8</span> ساعات عمل</div>
-                </div>
-                <div class="shift-stats-left">
-                    <span>أوفرتايم:</span> <span class="text-orange">2.0x</span>
-                </div>
-            </div>
-
-            <div class="shift-actions">
-                <button class="btn btn-outline"><i class='bx bx-group'></i> الموظفين</button>
-                <button class="btn btn-blue"><i class='bx bx-pencil'></i> تعديل</button>
-            </div>
-        </div>
+        @endforeach
 
         <!-- Add New Shift Card -->
-        <a href="" class="shift-card dashed-card">
+        <a href="{{ route('admin.shifts.create') }}" wire:navigate class="shift-card dashed-card">
             <i class='bx bx-plus'></i>
             <span>إضافة شفت جديد</span>
         </a>
@@ -160,4 +89,4 @@
             </div>
         </div>
     </div>
-@endsection
+</div>

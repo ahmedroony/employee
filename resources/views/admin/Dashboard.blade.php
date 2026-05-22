@@ -112,75 +112,7 @@
                         <td><button class="btn-edit">تعديل</button></td>
                     </tr>
 
-                    <!-- Row 2 -->
-                    <tr>
-                        <td>
-                            <div class="employee-info">
-                                <div class="avatar-circle bg-orange">سا</div>
-                                <div class="emp-details">
-                                    <strong>سارة أحمد</strong>
-                                    <span>#EMP-002</span>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="shift-name text-cyan">صباحي A</td>
-                        <td class="time-orange">08:45</td>
-                        <td class="time-blue">16:00</td>
-                        <td>
-                            <div class="hours-info">
-                                <strong>7.3</strong>
-                            </div>
-                        </td>
-                        <td><span class="status-badge status-late"><span class="dot"></span> متأخر</span></td>
-                        <td><button class="btn-edit">تعديل</button></td>
-                    </tr>
 
-                    <!-- Row 3 -->
-                    <tr>
-                        <td>
-                            <div class="employee-info">
-                                <div class="avatar-circle bg-purple">عم</div>
-                                <div class="emp-details">
-                                    <strong>عمر حسن</strong>
-                                    <span>#EMP-003</span>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="shift-name text-purple">مسائي B</td>
-                        <td class="time-green">14:00</td>
-                        <td class="time-red">-</td>
-                        <td>
-                            <div class="hours-info">
-                                <strong>4.0</strong>
-                            </div>
-                        </td>
-                        <td><span class="status-badge status-no-logout"><span class="dot"></span> بدون خروج</span></td>
-                        <td><button class="btn-edit danger">تعديل !</button></td>
-                    </tr>
-
-                    <!-- Row 4 -->
-                    <tr>
-                        <td>
-                            <div class="employee-info">
-                                <div class="avatar-circle bg-cyan">نو</div>
-                                <div class="emp-details">
-                                    <strong>نور الدين</strong>
-                                    <span>#EMP-004</span>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="shift-name text-purple">مسائي B</td>
-                        <td class="time-green">14:05</td>
-                        <td class="time-blue">22:30</td>
-                        <td>
-                            <div class="hours-info">
-                                <strong>8.4</strong>
-                                <span class="overtime text-orange">+0.5</span>
-                            </div>
-                        </td>
-                        <td><span class="status-badge status-modified"><span class="dot"></span> معدل</span></td>
-                        <td><button class="btn-edit">تعديل</button></td>
-                    </tr>
                 </tbody>
             </table>
         </div>
