@@ -1,4 +1,7 @@
 <div>
+    <form action="">
+        hello
+    </form>
     @vite(['resources/css/admin/CreateShift.css'])
 
     <header class="top-header">
@@ -6,19 +9,18 @@
             <div class="breadcrumb">
                 <a href="{{ route('admin.shifts') }}">إدارة الشفتات</a>
                 <i class='bx bx-chevron-left'></i>
-                <span>إضافة شفت جديد</span>
+                <span>تعديل الشفت</span>
             </div>
-            <h1>إضافة شفت جديد</h1>
-            <p>قم بإنشاء شفت عمل جديد وتحديد المواعيد والقواعد الخاصة به</p>
+            <h1>تعديل الشفت: {{ $name }}</h1>
         </div>
         <div class="header-left">
             <a href="{{ route('admin.shifts') }}" class="btn btn-outline">إلغاء</a>
-            <button type="submit" form="create-shift-form" class="btn btn-primary">حفظ الشفت</button>
+            <button type="submit" form="edit-shift-form" class="btn btn-primary">تحديث الشفت</button>
         </div>
     </header>
 
     <div class="form-container">
-        <form id="create-shift-form" class="premium-form" wire:submit="store">
+        <form id="edit-shift-form" class="premium-form" wire:submit="update">
             <div class="form-grid">
                 <div class="form-section">
                     <div class="section-header">
@@ -28,12 +30,10 @@
 
                     <div class="input-group">
                         <label for="shift_name">اسم الشفت</label>
-                        <input type="text" id="shift_name" wire:model="name" placeholder="مثال: شفت صباحي A"
-                            required>
+                        <input type="text" id="shift_name" wire:model="name" required>
                         @error('name')
                             <span class="error">{{ $message }}</span>
                         @enderror
-                        <span class="input-hint">يفضل أن يكون الاسم فريداً ومعبراً</span>
                     </div>
 
                     <div class="input-row">
@@ -59,10 +59,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="form-actions" style="margin-top: 20px;">
-                <button type="submit" class="btn btn-primary">حفظ الشفت</button>
             </div>
         </form>
     </div>
