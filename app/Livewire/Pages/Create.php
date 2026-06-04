@@ -23,7 +23,7 @@ class Create extends Component
             'end_time' => 'required|date_format:H:i',
         ]);
 
-        $service->store($validated);
+        $service->storeshifts($validated);
 
         return redirect()->route('admin.shifts')->with('success', 'تم إضافة الشفت بنجاح');
     }
