@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Pages;
 
-use App\Models\Shift;
+use App\Http\Domains\Shifts\Actions\ShiftService;
 use Livewire\Component;
 
 class Edit extends Component
@@ -15,29 +15,23 @@ class Edit extends Component
 
     public $end_time;
 
-    public function mount($id)
+    public function mount(ShiftService $service, $id)
     {
-        $shift = Shift::findOrFail($id);
-
+        $shift = $service->findId($id);
         $this->shiftId = $shift->id;
         $this->name = $shift->name;
         $this->start_time = $shift->start_time;
         $this->end_time = $shift->end_time;
     }
 
-    public function update()
+    public function update(ShiftService $service)
     {
-        $this->validate([
+        $data = $this->validate([
             'name' => 'required|string|max:50|unique:shifts,name,'.$this->shiftId,
             'start_time' => 'required',
             'end_time' => 'required',
         ]);
-        $shift = Shift::findOrFail($this->shiftId);
-        $shift->update([
-            'name' => $this->name,
-            'start_time' => $this->start_time,
-            'end_time' => $this->end_time,
-        ]);
+        $service->update($this->shiftId, $data);
         session()->flash('message', 'تم تعديل الشفت بنجاح!');
 
         return redirect()->route('admin.shifts');

@@ -2,37 +2,27 @@
 
 namespace App\Http\Domains\Shifts\Actions;
 
-use App\Models\Shift;
+use App\Http\Domains\Shifts\Repositories\ShiftRepositoryInterface;
 
 class ShiftService
 {
-    public function index() {}
+    public function __construct(private ShiftRepositoryInterface $repository) {}
 
-    public function create() {}
-
-    public function store(array $data)
+    public function getAll()
     {
-
-        return Shift::create([
-            'name' => $data['name'],
-            'start_time' => $data['start_time'],
-            'end_time' => $data['end_time'],
-        ]);
-
+        return $this->repository->getAllShifts();
+    }
+    public function findId($id){
+        return $this->repository->findId($id);
     }
 
-    public function find($id)
+    public function storeshifts(array $data)
     {
-        return Shift::findOrFail($id);
+        return $this->repository->storeshifts($data);
     }
 
     public function update($id, array $data)
     {
-        $shift = $this->find($id);
-        return $shift->update([
-            'name' => $data['name'],
-            'start_time' => $data['start_time'],
-            'end_time' => $data['end_time'],
-        ]);
+        return $this->repository->updateShift($id, $data);
     }
 }
