@@ -46,6 +46,8 @@
                     <button class="btn btn-outline"><i class='bx bx-group'></i> الموظفين</button>
                     <a href="{{ route('admin.shifts.edit', $shift->id) }}" wire:navigate class="btn btn-blue"
                         class="btn btn-blue"><i class='bx bx-pencil'></i> تعديل</a>
+                    <button wire:click="deleteShift({{ $shift->id }})"><i class='bx bx-trash'></i>
+                        حذف</button>
                 </div>
             </div>
         @endforeach
