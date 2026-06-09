@@ -3,9 +3,11 @@
 namespace App\Livewire\Pages;
 
 use App\Http\Domains\Shifts\Actions\ShiftService;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-class Edit extends Component
+#[Layout('layouts.admin')]
+class EditShift extends Component
 {
     public $shiftId;
 
@@ -14,7 +16,7 @@ class Edit extends Component
     public $start_time;
 
     public $end_time;
-
+    //mount this is where i pass the data
     public function mount(ShiftService $service, $id)
     {
         $shift = $service->findId($id);

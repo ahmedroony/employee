@@ -7,7 +7,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[Layout('layouts.admin')] // use layout in folder layouts/admin
-class Create extends Component
+class CreateShift extends Component
 {
     public $name;
 

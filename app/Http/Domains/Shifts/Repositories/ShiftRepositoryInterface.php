@@ -5,4 +5,5 @@ interface ShiftRepositoryInterface{
     public function findId($id);
     public function storeShifts(array $data);
     public function updateShift($id, array $data);
+    public function deleteShift($id);
 }

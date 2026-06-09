@@ -1,7 +1,4 @@
 <div>
-    <form action="">
-        hello
-    </form>
     @vite(['resources/css/admin/CreateShift.css'])
 
     <header class="top-header">

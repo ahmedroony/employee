@@ -33,4 +33,14 @@ class ShiftRepository implements ShiftRepositoryInterface
             'end_time' => $data['end_time'],
         ]);
     }
+    public function deleteShift($id)
+    {
+        $shift = Shift::find($id);
+        if(!$shift){
+            session()->flash('error', 'هذا الشفت غير موجود أو تم حذفه مسبقاً');
+            return;
+        }
+        $shift->delete();
+        session()->flash('success', 'تم حذف الشفت بنجاح!');
+    }
 }

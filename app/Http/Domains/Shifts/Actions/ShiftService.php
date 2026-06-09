@@ -25,4 +25,8 @@ class ShiftService
     {
         return $this->repository->updateShift($id, $data);
     }
+    public function delete($id)
+    {
+        return $this->repository->deleteShift($id);
+    }
 }
