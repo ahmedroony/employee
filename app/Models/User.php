@@ -8,6 +8,7 @@ use App\Models\Shift;
 use App\Models\UserType;
 use App\Models\Phone;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -60,9 +61,9 @@ class User extends Authenticatable
         return $this->hasMany(Log::class);
     }
 
-    public function shifts()
+    public function shifts():BelongsToMany
     {
-        return $this->belongsToMany(Shift::class, 'user_shift');
+        return $this->belongsToMany(Shift::class, 'user_shift','user_id','shift_id');
     }
 
     public function phones()
