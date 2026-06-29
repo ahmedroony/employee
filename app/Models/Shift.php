@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
 class Shift extends Model
@@ -29,8 +30,8 @@ class Shift extends Model
         return $start->diffInHours($end);
     }
 
-    public function users()
+    public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'user_shift');
+        return $this->belongsToMany(User::class, 'user_shift','shift_id','user_id');
     }
 }

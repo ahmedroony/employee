@@ -3,8 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Http\Domains\Shifts\Repositories\ShiftRepository;
-use App\Http\Domains\Shifts\Repositories\ShiftRepositoryInterface;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -12,7 +11,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(ShiftRepositoryInterface::class,ShiftRepository::class);
+        //
     }
 
     /**
@@ -23,3 +22,4 @@ class AppServiceProvider extends ServiceProvider
         //
     }
 }
+

@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Pages;
 
-use App\Http\Domains\Shifts\Actions\ShiftService;
+use App\Http\Domains\Shifts\Actions\StoreShiftAction;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -15,7 +15,7 @@ class CreateShift extends Component
 
     public $end_time;
 
-    public function store(ShiftService $service)
+    public function store(StoreShiftAction $action)
     {
         $validated = $this->validate([
             'name' => 'required|string|max:50|unique:shifts,name',
@@ -23,7 +23,7 @@ class CreateShift extends Component
             'end_time' => 'required|date_format:H:i',
         ]);
 
-        $service->storeshifts($validated);
+        $action->execute($validated);
 
         return redirect()->route('admin.shifts')->with('success', 'تم إضافة الشفت بنجاح');
     }
@@ -33,3 +33,4 @@ class CreateShift extends Component
         return view('livewire.pages.create');
     }
 }
+
