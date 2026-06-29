@@ -36,8 +36,8 @@
                 <nav class="sidebar-nav">
                     <div class="nav-section">
                         <span class="nav-title">الرئيسية</span>
-                        <a href="{{ route('admin.index') }}"
-                            class="nav-link {{ request()->routeIs('admin.index') ? 'active' : '' }}">
+                        <a href="{{ route('admin.users') }}"
+                            class="nav-link {{ request()->routeIs('admin.users') ? 'active' : '' }}">
                             <i class='bx bxs-dashboard'></i>
                             <span>لوحة التحكم</span>
                         </a>
