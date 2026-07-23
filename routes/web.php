@@ -1,22 +1,23 @@
 <?php
 
-use App\Http\Middleware\CheckUserRole;
 use App\Livewire\Pages\AllShifts;
-// Users Routes
 use App\Livewire\Pages\AllUsers;
+// Users Routes
 use App\Livewire\Pages\CreateShift;
 use App\Livewire\Pages\CreateUser;
-// Shifts Routes
 use App\Livewire\Pages\EditShift;
-use App\Livewire\Pages\EditUser;
-use App\Livewire\Pages\showUsersShift;
-use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return view('welcome');
-});
 // Shifts Routes
-Route::middleware('adminAuth')->group(function () {
+use App\Livewire\Pages\EditUser;
+use App\Livewire\Pages\employedashboard;
+use App\Livewire\Pages\login;
+// register,logout,login
+use App\livewire\Pages\Logout;
+use App\Livewire\Pages\RegisterUserPage;
+use App\Livewire\Pages\showUsersShift;
+// employee dashboard routes
+use Illuminate\Support\Facades\Route;
+// Shifts Routes
+Route::middleware(['auth','adminAuth:admin'])->group(function () {
 
     Route::get('/admin/shifts', AllShifts::class)->name('admin.shifts');
     Route::get('/admin/create', CreateShift::class)->name('admin.shifts.create');
@@ -28,5 +29,15 @@ Route::middleware('adminAuth')->group(function () {
     Route::get('/admin/users/create', CreateUser::class)->name('admin.users.create');
     Route::get('/admin/users/{id}/edit', EditUser::class)->name('admin.users.edit');
 });
-//register route
-Route::get('/register',['RegisterUser']);
+// register,logout,login
+Route::get('/register', RegisterUserPage::class)->name('register');
+Route::get('/logout', Logout::class)->name('logout');
+Route::get('/login', login::class)->name('login');
+
+// employee dashboard routes
+Route::middleware('auth')->group(function () {
+    Route::get('/employee/dashboard', employedashboard::class)->name('employee.dashboard');
+    Route::get('/', function () {
+        return view('home');
+    })->name('welcome');
+});
