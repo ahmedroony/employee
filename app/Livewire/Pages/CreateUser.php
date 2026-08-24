@@ -30,7 +30,7 @@ class CreateUser extends Component
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
             'user_type_id' => 'required|exists:user_types,id',
-            'selected_shifts' => 'required|array',
+            'selected_shifts' => 'nullable|array',
             'selected_shifts.*' => 'exists:shifts,id'
         ]);
 

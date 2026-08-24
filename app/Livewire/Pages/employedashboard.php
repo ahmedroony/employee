@@ -10,9 +10,8 @@ use Livewire\Component;
 class employedashboard extends Component
 {
     public $login_time;
-
     public $shifts;
-
+    public $officaltimeshift;
     public function startShift(EmployeeDashboard $employeeDashboard)
     {
         $employeeDashboard->startShift();
@@ -27,6 +26,7 @@ class employedashboard extends Component
     {
         $this->shifts = auth()->user()->shifts;
         $this->login_time = $employeeDashboard->getCurrentWorkDuration();
+        $this->officaltimeshift = $employeeDashboard->getcurrentTimeShift();
     }
 
     public function render()

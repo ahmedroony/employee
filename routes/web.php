@@ -15,6 +15,7 @@ use App\livewire\Pages\Logout;
 use App\Livewire\Pages\RegisterUserPage;
 use App\Livewire\Pages\showUsersShift;
 // employee dashboard routes
+use App\Livewire\Pages\attendee;
 use Illuminate\Support\Facades\Route;
 // Shifts Routes
 Route::middleware(['auth','adminAuth:admin'])->group(function () {
@@ -23,6 +24,7 @@ Route::middleware(['auth','adminAuth:admin'])->group(function () {
     Route::get('/admin/create', CreateShift::class)->name('admin.shifts.create');
     Route::get('/shifts/{id}/edit', EditShift::class)->name('admin.shifts.edit');
     Route::get('/shifts/{id}/showusers', showUsersShift::class)->name('admin.shifts.showusersshift');
+    Route::get('/admin/attendee',attendee::class)->name('admin.shifts.attendee');
 
     // Users Routes
     Route::get('/admin/users', AllUsers::class)->name('admin.users');

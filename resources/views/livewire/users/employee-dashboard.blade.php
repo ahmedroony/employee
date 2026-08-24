@@ -35,17 +35,25 @@
         </div>
 
     </div>
-    <div class="flex ml-6 w-95 h-96 border-zinc-100 pt-4 text-sm text-zinc-600">
-        <div class="card bg-base-100 w-90 shadow-sm">
-            <div class="card-body">
-                <h2 class="shift-day">شفتك اليوم</h2>
+    <div class="bg-blue-50/60 rounded-2xl p-5 border border-blue-100 flex justify-between items-center text-right">
+        <div class="flex flex-col gap-1 text-right">
+            <span class="text-xs text-blue-500 font-bold">شفتك اليوم</span>
+            <h3 class="text-base font-bold text-zinc-800">
                 @foreach ($shifts as $shift)
-                    <p>{{ $shift->name }}</p>
+                    {{ $shift->name }}
                 @endforeach
-                <div class="card-actions justify-end">
-                    <button class="btn btn-primary">Buy Now</button>
-                </div>
-            </div>
+            </h3>
+            <p class="text-xs text-zinc-500">
+                <span>بدايه الشيفت</span> {{ $officaltimeshift?->start_time }}
+                ->
+                <span>نهايه الشيفت</span> {{ $officaltimeshift?->end_time }}
+            </p>
         </div>
+        <h2 class="shift-day">شفتك اليوم</h2>
+        @foreach ($shifts as $shift)
+            <p>{{ $shift->name }}</p>
+        @endforeach
     </div>
+</div>
+</div>
 </div>
