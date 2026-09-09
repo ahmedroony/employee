@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 class Shift extends Model
 {
     protected $fillable = [
@@ -33,5 +33,9 @@ class Shift extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'user_shift','shift_id','user_id');
+    }
+    public function logs(): HasMany
+    {
+        return $this->hasMany(Log::class);
     }
 }

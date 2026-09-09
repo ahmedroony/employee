@@ -17,9 +17,10 @@ class CheckUserRole
         if (! $request->user()) {
             abort('401', 'Unauthorized');
         }
-        if ($request->user()->user_type->id == 2) {
+        if ($request->user()?->user_type?->name === "admin") {
             return $next($request);
-        } else {
+        }
+        else {
             abort(403, 'You do not have the correct user role to access this page.');
         }
     }

@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // FK user_id
-            $table->dateTime('login_time'); // datetime not null
-            $table->dateTime('logout_time'); // datetime not null
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->dateTime('login_time');
+            $table->dateTime('logout_time')->nullable();
+            $table->string("present");
             $table->timestamps();
         });
     }

@@ -11,19 +11,6 @@ class EmployeeDashboard
     public function startShift()
     {
         $user = Auth::user();
-
-        $activeLog = DB::table('logs')->where('user_id', $user->id)
-            ->whereNull('logout_time')
-            ->first();
-
-        if ($activeLog) {
-            return 'already working';
-        }
-
-        Log::create([
-            'user_id' => $user->id,
-            'login_time' => now(),
-        ]);
     }
 
     public function endShift()
