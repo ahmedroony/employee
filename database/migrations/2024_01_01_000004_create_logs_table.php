@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('shift_id')->nullable()->constrained()->nullOnDelete();
             $table->dateTime('login_time');
             $table->dateTime('logout_time')->nullable();
-            $table->string("present");
+            $table->enum('status',['working','completed','auto_closed','overtime'])->default('working');
             $table->timestamps();
         });
     }

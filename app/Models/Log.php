@@ -8,8 +8,10 @@ class Log extends Model
 {
     protected $fillable = [
         'user_id',
+        'shift_id',
         'login_time',
         'logout_time',
+        'status',
     ];
 
     protected $casts = [
@@ -21,8 +23,10 @@ class Log extends Model
     {
         return $this->belongsTo(User::class);
     }
+
     public function shift():BelongsTo
     {
         return $this->belongsTo(Shift::class);
     }
+
 }

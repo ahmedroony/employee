@@ -12,8 +12,9 @@ class employedashboard extends Component
     public $login_time;
     public $shifts;
     public $officaltimeshift;
-    public function startShift(EmployeeDashboard $employeeDashboard)
+    public function startShift()
     {
+        $employeeDashboard = new EmployeeDashboard();
         $employeeDashboard->startShift();
     }
 
