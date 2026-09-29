@@ -12,9 +12,10 @@ class employedashboard extends Component
     public $login_time;
     public $shifts;
     public $officaltimeshift;
+
     public function startShift()
     {
-        $employeeDashboard = new EmployeeDashboard();
+        $employeeDashboard = app(EmployeeDashboard::class);
         $employeeDashboard->startShift();
     }
 
@@ -22,7 +23,7 @@ class employedashboard extends Component
     {
         $employeeDashboard->endShift();
     }
-
+    
     public function mount(EmployeeDashboard $employeeDashboard)
     {
         $this->shifts = auth()->user()->shifts;
@@ -34,4 +35,7 @@ class employedashboard extends Component
     {
         return view('livewire.users.employee-dashboard');
     }
+
+
+
 }

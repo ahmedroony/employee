@@ -1,21 +1,18 @@
 <?php
 
+use App\Http\Domains\employeedashboard\EmployeeDashboard;
 use App\Livewire\Pages\AllShifts;
 use App\Livewire\Pages\AllUsers;
-// Users Routes
+use App\Livewire\Pages\Attendee;
 use App\Livewire\Pages\CreateShift;
 use App\Livewire\Pages\CreateUser;
 use App\Livewire\Pages\EditShift;
-// Shifts Routes
 use App\Livewire\Pages\EditUser;
 use App\Livewire\Pages\employedashboard;
 use App\Livewire\Pages\login;
-// register,logout,login
 use App\livewire\Pages\Logout;
 use App\Livewire\Pages\RegisterUserPage;
 use App\Livewire\Pages\showUsersShift;
-// employee dashboard routes
-use App\Livewire\Pages\Attendee;
 use Illuminate\Support\Facades\Route;
 // Shifts Routes
 Route::middleware(['auth','adminAuth:admin'])->group(function () {

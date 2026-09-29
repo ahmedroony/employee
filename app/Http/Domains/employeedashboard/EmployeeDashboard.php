@@ -2,18 +2,17 @@
 
 namespace App\Http\Domains\employeedashboard;
 
+use Carbon\Carbon;
 use App\Models\Log;
+use App\Models\Shift;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Models\User;
+
 class EmployeeDashboard
 {
     public function startShift()
     {
-        /*
-        -store the login time in the logs table when the user starts the shift
-        -store shift_id in the logs table when the user starts the shift
-        */
+        //store new login_time in log
         $user = Auth::user();
         Log::create([
             'user_id' => $user->id,
@@ -26,18 +25,42 @@ class EmployeeDashboard
 
     public function endShift()
     {
-        DB::table('logs')->where('user_id', Auth::id())
+        DB::table('logs')
+            ->where('user_id', Auth::id())
             ->whereNull('logout_time')
-            ->update(['logout_time' => now()]);
+            ->update([
+                'logout_time' => now(),
+                'status' => 'completed',
+            ]);
     }
     public function getCurrentWorkDuration()
     {
-        return DB::table('logs')->where('user_id',Auth::id())->orderByDesc('login_time')->value('login_time');
+        return DB::table('logs')->where('user_id', Auth::id())->orderByDesc('login_time')->value('login_time');
     }
-        // task we need get  all shift and display the start time and end time to user
 
-        public function getcurrentTimeShift()
+    public function getcurrentTimeShift()
     {
-        return (auth()->user()->shifts()->first(['start_time', 'end_time']));
+        return auth()->user()->shifts()->first();
+    }
+
+    public function autoCloseShift()
+    {
+        $now = Carbon::now('Africa/Cairo');
+        $openLogs = DB::table('Logs')
+        ->join('shifts', 'logs.shift_id', '=', 'shifts.id')
+        ->whereNull('logs.logout_time')->where('logs.status', 'working')
+        ->select('logs.id as log_id', 'shifts.end_time')
+        ->get();
+
+        foreach ($openLogs as $log) {
+            $shiftEnd = Carbon::parse($log->end_time, 'Africa/Cairo')->setDateFrom($now);
+            if ($now->diffInMinutes($shiftEnd, false) <= -1) {
+                DB::table('logs')->where('id', $log->log_id)->update([
+                    'logout_time' => $shiftEnd,
+                    'status' => 'auto_closed',
+                ]);
+            }
+        }
+        return response()->json(['message' => 'Auto-close completed.']);
     }
 }
