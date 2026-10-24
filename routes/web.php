@@ -8,12 +8,13 @@ use App\Livewire\Pages\CreateShift;
 use App\Livewire\Pages\CreateUser;
 use App\Livewire\Pages\EditShift;
 use App\Livewire\Pages\EditUser;
-use App\Livewire\Pages\employedashboard;
+use App\Livewire\Pages\EmployeeDashboardPage;
 use App\Livewire\Pages\login;
 use App\livewire\Pages\Logout;
 use App\Livewire\Pages\RegisterUserPage;
 use App\Livewire\Pages\showUsersShift;
 use Illuminate\Support\Facades\Route;
+use App\Http\Domains\EmployeeDashboardService\EmployeeDashboard as EmployeeDashboardService;
 // Shifts Routes
 Route::middleware(['auth','adminAuth:admin'])->group(function () {
 
@@ -35,7 +36,7 @@ Route::get('/login', login::class)->name('login');
 
 // employee dashboard routes
 Route::middleware('auth')->group(function () {
-    Route::get('/employee/dashboard', employedashboard::class)->name('employee.dashboard');
+    Route::get('/employee/dashboard', EmployeeDashboardPage::class)->name('employee.dashboard');
     Route::get('/', function () {
         return view('home');
     })->name('welcome');

@@ -2,6 +2,12 @@
 
     <div class="card bg-white shadow-sm border border-zinc-200 p-6 w-full max-w-md">
 
+        @if ($errorMessage)
+            <div class="mb-4 text-sm text-red-600 bg-red-50 p-3 rounded-lg border border-red-200 text-center font-medium">
+                {{ $errorMessage }}
+            </div>
+        @endif
+
         <div class="flex justify-center items-center gap-3 my-6 text-zinc-800">
             <div class="hour text-4xl font-bold font-mono">18</div>
             <div class="text-2xl font-bold text-zinc-300">:</div>
@@ -14,14 +20,13 @@
             <span id="dayname" class="font-bold text-zinc-800">الجمعة</span>
         </div>
         <div class="space-y-3 my-4 border-t border-zinc-100 pt-4 text-sm text-zinc-600">
-            <div class="flex justify-between items-center">
-                <span>⏱️ مدة العمل الحالي:</span>
-                <span id="display" data-start="{{ $login_time }}"
-                    class="font-semibold text-zinc-800">00:00:00:00</span>
-            </div>
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between items-center" wire:poll>
                 <span>📅 بدأ الشفت:</span>
                 <span id="start-time" class="font-semibold text-zinc-800">{{ $login_time }}</span>
+            </div>
+            <div class="flex justify-between items-center" wire:poll>
+                <span>📅 نهايه الشفت:</span>
+                <span id="end-time" class="font-semibold text-zinc-800">{{ $logout_time }}</span>
             </div>
         </div>
 
@@ -31,6 +36,9 @@
             </button>
             <button wire:click="endShift" class="btn btn-error flex-1 text-white gap-2" onclick="end()">
                 <span>إنهاء العمل</span> ❌
+            </button>
+            <button wire:click="continueOvertime" class="btn btn-warning flex-1 text-white gap-2" onclick="continueOvertime()">
+                <span>استمرار العمل</span> ⏳
             </button>
         </div>
 
