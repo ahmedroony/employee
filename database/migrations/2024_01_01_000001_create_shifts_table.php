@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('shifts', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50); // varchar(50) not null
-            $table->time('start_time'); // Time not null
-            $table->time('end_time');   // Time not null
+            $table->string('name', 50);
+            $table->time('start_time');
+            $table->time('end_time');
             $table->timestamps();
         });
     }

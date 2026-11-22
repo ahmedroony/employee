@@ -1,120 +1,152 @@
 @extends('layouts.admin')
 
 @section('title', 'لوحة التحكم - TimeTrack')
-@vite(['resources/css/admin/dashboard.css'])
-
 
 @section('content')
-    <header class="top-header">
-        <div class="header-right">
-            <h1>لوحة التحكم</h1>
-            <p>نظرة عامة — {{ \Carbon\Carbon::now()->locale('ar')->translatedFormat('l d F Y') }}</p>
+    <!-- Header Section -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-5 border-b border-base-300">
+        <div>
+            <h1 class="text-3xl font-extrabold tracking-tight">لوحة التحكم</h1>
+            <p class="text-base-content/60 text-sm mt-1">نظرة عامة — {{ \Carbon\Carbon::now()->locale('ar')->translatedFormat('l d F Y') }}</p>
         </div>
-        <div class="header-left">
-            <div class="status-indicator">
-                <span class="dot pulse-green"></span> مباشر
+        <div class="flex items-center gap-3">
+            <div class="badge badge-success badge-outline gap-1.5 px-3 py-3 font-semibold">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
+                </span>
+                مباشر
             </div>
-            <button class="btn btn-outline">تصدير</button>
-            <button class="btn btn-primary"><i class='bx bx-plus'></i> تسجيل يدوي</button>
+            <button class="btn btn-outline btn-sm">تصدير</button>
+            <button class="btn btn-primary btn-sm"><i class='bx bx-plus text-base'></i> تسجيل يدوي</button>
         </div>
-    </header>
+    </div>
 
     <!-- Stats Cards Grid -->
-    <div class="stats-grid">
-        <div class="stat-card border-green">
-            <div class="stat-header">
-                <h3>حاضرين</h3>
-                <span class="stat-value green-text">24</span>
-            </div>
-            <div class="stat-footer">
-                <p>من 28 موظف</p>
-            </div>
-        </div>
-
-        <div class="stat-card border-red">
-            <div class="stat-header">
-                <h3>غائبين</h3>
-                <span class="stat-value red-text">4</span>
-            </div>
-            <div class="stat-footer">
-                <p>2 بدون إذن</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Card 1 -->
+        <div class="card bg-base-100 shadow-sm border-s-4 border-success">
+            <div class="card-body p-5">
+                <div class="flex justify-between items-center">
+                    <span class="text-base-content/60 font-semibold text-sm">حاضرين</span>
+                    <div class="p-2 bg-success/10 text-success rounded-lg"><i class='bx bx-user-check text-xl'></i></div>
+                </div>
+                <div class="mt-2">
+                    <span class="text-3xl font-bold text-success">24</span>
+                </div>
+                <p class="text-xs text-base-content/50 mt-1">من 28 موظف</p>
             </div>
         </div>
 
-        <div class="stat-card border-orange">
-            <div class="stat-header">
-                <h3>متأخرين</h3>
-                <span class="stat-value orange-text">3</span>
-            </div>
-            <div class="stat-footer">
-                <p>متوسط 22 دقيقة</p>
+        <!-- Card 2 -->
+        <div class="card bg-base-100 shadow-sm border-s-4 border-error">
+            <div class="card-body p-5">
+                <div class="flex justify-between items-center">
+                    <span class="text-base-content/60 font-semibold text-sm">غائبين</span>
+                    <div class="p-2 bg-error/10 text-error rounded-lg"><i class='bx bx-user-x text-xl'></i></div>
+                </div>
+                <div class="mt-2">
+                    <span class="text-3xl font-bold text-error">4</span>
+                </div>
+                <p class="text-xs text-base-content/50 mt-1">2 بدون إذن</p>
             </div>
         </div>
 
-        <div class="stat-card border-purple">
-            <div class="stat-header">
-                <h3>بدون logout</h3>
-                <span class="stat-value purple-text">1</span>
+        <!-- Card 3 -->
+        <div class="card bg-base-100 shadow-sm border-s-4 border-warning">
+            <div class="card-body p-5">
+                <div class="flex justify-between items-center">
+                    <span class="text-base-content/60 font-semibold text-sm">متأخرين</span>
+                    <div class="p-2 bg-warning/10 text-warning rounded-lg"><i class='bx bx-time-five text-xl'></i></div>
+                </div>
+                <div class="mt-2">
+                    <span class="text-3xl font-bold text-warning">3</span>
+                </div>
+                <p class="text-xs text-base-content/50 mt-1">متوسط 22 دقيقة</p>
             </div>
-            <div class="stat-footer">
-                <p>يحتاج مراجعة</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card bg-base-100 shadow-sm border-s-4 border-secondary">
+            <div class="card-body p-5">
+                <div class="flex justify-between items-center">
+                    <span class="text-base-content/60 font-semibold text-sm">بدون تسجيل خروج</span>
+                    <div class="p-2 bg-secondary/10 text-secondary rounded-lg"><i class='bx bx-log-out-circle text-xl'></i></div>
+                </div>
+                <div class="mt-2">
+                    <span class="text-3xl font-bold text-secondary">1</span>
+                </div>
+                <p class="text-xs text-base-content/50 mt-1">يحتاج مراجعة</p>
             </div>
         </div>
     </div>
 
     <!-- Attendance Table Section -->
-    <div class="table-section">
-        <div class="table-header">
-            <h2>سجل الحضور اليوم</h2>
-            <div class="table-filters">
-                <button class="filter-btn active">الكل</button>
-                <button class="filter-btn">متأخر</button>
-                <button class="filter-btn">بدون خروج</button>
-                <button class="filter-btn">معدل</button>
+    <div class="card bg-base-100 shadow-sm border border-base-300">
+        <div class="card-body p-0">
+            <!-- Table Header with Filters -->
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-6 border-b border-base-200">
+                <h2 class="card-title text-xl font-bold">سجل الحضور اليوم</h2>
+                <div class="join">
+                    <button class="join-item btn btn-sm btn-active">الكل</button>
+                    <button class="join-item btn btn-sm btn-ghost">متأخر</button>
+                    <button class="join-item btn btn-sm btn-ghost">بدون خروج</button>
+                    <button class="join-item btn btn-sm btn-ghost">معدل</button>
+                </div>
             </div>
-        </div>
 
-        <div class="table-responsive">
-            <table class="attendance-table">
-                <thead>
-                    <tr>
-                        <th>الموظف</th>
-                        <th>الشفت</th>
-                        <th>دخول</th>
-                        <th>خروج</th>
-                        <th>الساعات</th>
-                        <th>الحالة</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Row 1 -->
-                    <tr>
-                        <td>
-                            <div class="employee-info">
-                                <div class="avatar-circle bg-blue">مح</div>
-                                <div class="emp-details">
-                                    <strong>محمد علي</strong>
-                                    <span>#EMP-001</span>
+            <!-- Table responsive wrapper -->
+            <div class="overflow-x-auto w-full">
+                <table class="table table-zebra table-md w-full">
+                    <thead>
+                        <tr class="bg-base-200/50 text-base-content/75 font-semibold text-sm">
+                            <th>الموظف</th>
+                            <th>الشفت</th>
+                            <th>دخول</th>
+                            <th>خروج</th>
+                            <th>الساعات</th>
+                            <th>الحالة</th>
+                            <th class="w-20">العمليات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Row 1 -->
+                        <tr class="hover:bg-base-200/30 transition-colors">
+                            <td>
+                                <div class="flex items-center gap-3">
+                                    <div class="avatar placeholder">
+                                        <div class="bg-blue-100 text-blue-600 rounded-full w-10 h-10 flex items-center justify-center font-bold">
+                                            <span>مح</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-sm">محمد علي</div>
+                                        <div class="text-xs text-base-content/50">#EMP-001</div>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td class="shift-name text-cyan">صباحي A</td>
-                        <td class="time-green">08:03</td>
-                        <td class="time-blue">17:15</td>
-                        <td>
-                            <div class="hours-info">
-                                <strong>9.2</strong>
-                                <span class="overtime text-orange">+1.2</span>
-                            </div>
-                        </td>
-                        <td><span class="status-badge status-present"><span class="dot"></span> حاضر</span></td>
-                        <td><button class="btn-edit">تعديل</button></td>
-                    </tr>
-
-
-                </tbody>
-            </table>
+                            </td>
+                            <td class="text-cyan-600 font-semibold">صباحي A</td>
+                            <td class="text-success font-medium">08:03</td>
+                            <td class="text-info font-medium">17:15</td>
+                            <td>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold">9.2</span>
+                                    <span class="badge badge-sm badge-warning text-xs font-semibold">+1.2</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge badge-success badge-outline gap-1 font-semibold text-xs">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-success"></span>
+                                    حاضر
+                                </span>
+                            </td>
+                            <td>
+                                <button class="btn btn-ghost btn-xs text-primary font-semibold hover:bg-primary/10">تعديل</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 @endsection
@@ -122,3 +154,4 @@
 @push('js')
     <script src="{{ asset('ui_template/js/script.js') }}"></script>
 @endpush
+
