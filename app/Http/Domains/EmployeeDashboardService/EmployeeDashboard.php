@@ -11,11 +11,23 @@ class EmployeeDashboard
 {
     public function startShift()
     {
-        $user = Auth::user();
-        $currentlog = DB::table('logs')->where('user_id', Auth::id())->where('status', 'working')->whereNull('logout_time')->exists();
-        if ($currentlog) {
-            return false;
-        } else {
+        return DB::transaction(function () {
+            $user = Auth::user();
+            if (! $user) {
+                return false;
+            }
+
+            DB::table('users')->where('id', $user->id)->lockForUpdate()->first();
+
+            $hasOpenLog = DB::table('logs')
+                ->where('user_id', $user->id)
+                ->whereNull('logout_time')
+                ->exists();
+
+            if ($hasOpenLog) {
+                return false;
+            }
+
             Log::create([
                 'user_id' => $user->id,
                 'shift_id' => $user->shifts()->latest()->first()?->id,
@@ -23,8 +35,9 @@ class EmployeeDashboard
                 'logout_time' => null,
                 'status' => 'working',
             ]);
+
             return true;
-        }
+        });
     }
 
     public function endShift()
@@ -52,7 +65,7 @@ class EmployeeDashboard
     public function autoCloseShift()
     {
         $now = Carbon::now('Africa/Cairo');
-        $openLogs = DB::table('Logs')
+        $openLogs = DB::table('logs')
             ->join('shifts', 'logs.shift_id', '=', 'shifts.id')
             ->whereNull('logs.logout_time')->where('logs.status', 'working')
             ->select('logs.id as log_id', 'shifts.end_time')

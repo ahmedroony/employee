@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Domains\employeedashboard\EmployeeDashboard;
 use App\Livewire\Pages\AllShifts;
 use App\Livewire\Pages\AllUsers;
 use App\Livewire\Pages\Attendee;

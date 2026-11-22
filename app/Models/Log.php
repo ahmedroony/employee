@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Log extends Model
 {
+    public $timestamps = false;
+
     protected $fillable = [
         'user_id',
         'shift_id',

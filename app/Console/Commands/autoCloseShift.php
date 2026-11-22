@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Http\Domains\employeedashboard\EmployeeDashboard;
+use App\Http\Domains\EmployeeDashboardService\EmployeeDashboard;
 class autoCloseShift extends Command
 {
     /**

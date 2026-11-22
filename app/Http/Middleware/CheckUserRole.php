@@ -12,12 +12,12 @@ class CheckUserRole
      *
      * @param  Closure(Request): (Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, string $role = 'admin'): Response
     {
         if (! $request->user()) {
             abort('401', 'Unauthorized');
         }
-        if ($request->user()?->user_type?->name === "admin") {
+        if ($request->user()?->user_type?->name === $role) {
             return $next($request);
         }
         else {
